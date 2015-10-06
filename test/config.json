@@ -1,0 +1,89 @@
+{
+  "tests": [
+    {
+      "input": "data/blank.in",
+      "output": "data/blank.out",
+      "flags": ["-i", "target,name,version,os,os_version,category", "-F"]
+    },
+    {
+      "input": "data/appliance.in",
+      "output": "data/appliance.out",
+      "flags": ["-i", "target,name,version,os,os_version,category", "-n", "-F"]
+    },
+    {
+      "input": "data/crawler.in",
+      "output": "data/crawler.out",
+      "flags": ["-i", "target,name,os,category", "-F"]
+    },
+    {
+      "input": "data/crawler_google.in",
+      "output": "data/crawler_google.out",
+      "flags": ["-i", "target,name,os,category", "-F"]
+    },
+    {
+      "input": "data/crawler_nonmajor.in",
+      "output": "data/crawler_nonmajor.out",
+      "flags": ["-i", "target,name,os,category", "-n", "-F"]
+    },
+    {
+      "input": "data/misc.in",
+      "output": "data/misc.out",
+      "flags": ["-i", "target,name,version,os,category", "-n", "-F"]
+    },
+    {
+      "input": "data/mobilephone_au.in",
+      "output": "data/mobilephone_au.out",
+      "flags": ["-i", "target,name,version,os,category", "-F"]
+    },
+    {
+      "input": "data/mobilephone_docomo.in",
+      "output": "data/mobilephone_docomo.out",
+      "flags": ["-i", "target,name,version,os,category", "-F"]
+    },
+    {
+      "input": "data/mobilephone_misc.in",
+      "output": "data/mobilephone_misc.out",
+      "flags": ["-i", "target,name,version,os,category", "-n", "-F"]
+    },
+    {
+      "input": "data/mobilephone_softbank.in",
+      "output": "data/mobilephone_softbank.out",
+      "flags": ["-i", "target,name,version,os,category", "-F"]
+    },
+    {
+      "input": "data/mobilephone_willcom.in",
+      "output": "data/mobilephone_willcom.out",
+      "flags": ["-i", "target,name,version,os,category", "-F"]
+    },
+    {
+      "input": "data/pc_lowpriority.in",
+      "output": "data/pc_lowpriority.out",
+      "flags": ["-i", "target,name,version,os,category", "-F"]
+    },
+    {
+      "input": "data/pc_misc.in",
+      "output": "data/pc_misc.out",
+      "flags": ["-i", "target,name,version,os,os_version,category", "-n", "-F"]
+    },
+    {
+      "input": "data/pc_windows.in",
+      "output": "data/pc_windows.out",
+      "flags": ["-i", "target,name,version,os,os_version,category", "-n", "-F"]
+    },
+    {
+      "input": "data/smartphone_android.in",
+      "output": "data/smartphone_android.out",
+      "flags": ["-i", "target,name,version,os,os_version,category", "-n", "-F"]
+    },
+    {
+      "input": "data/smartphone_ios.in",
+      "output": "data/smartphone_ios.out",
+      "flags": ["-i", "target,name,version,os,os_version,category", "-n", "-F"]
+    },
+    {
+      "input": "data/smartphone_misc.in",
+      "output": "data/smartphone_misc.out",
+      "flags": ["-i", "target,name,version,os,os_version,category", "-n", "-F"]
+    }
+  ]
+}

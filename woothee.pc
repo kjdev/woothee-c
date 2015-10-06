@@ -1,0 +1,10 @@
+prefix=@prefix@
+exec_prefix=${prefix}
+libdir=@libdir@
+includedir=${prefix}/include
+
+Name: woothee
+Description: multi-language user-agent strings parsers library
+Version: 1.0.0
+Libs: -L${libdir} -lwoothee -lpcre
+Cflags: -I${includedir}
