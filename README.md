@@ -1,5 +1,7 @@
 # Woothee C
 
+[![Build Status](https://travis-ci.org/kjdev/woothee-c.svg?branch=master)](https://travis-ci.org/kjdev/woothee-c)
+
 The C implementation of Project Woothee, which is multi-language user-agent
 strings parsers.
 
