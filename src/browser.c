@@ -51,6 +51,14 @@ woothee_browser_challenge_safari_chrome(const char *ua, woothee_t *result)
     return 1;
   }
 
+  version = woothee_match_get("FxiOS/([.0-9]+)", 0, ua, 1);
+  if (version) {
+    woothee_update(result, woothee_dataset_get(Firefox));
+    woothee_update_version(result, version);
+    free(version);
+    return 1;
+  }
+
   version = woothee_match_get("(?:Chrome|CrMo|CriOS)/([.0-9]+)", 0, ua, 1);
   if (version) {
     char *opera_version = woothee_match_get("OPR/([.0-9]+)", 0, ua, 1);
