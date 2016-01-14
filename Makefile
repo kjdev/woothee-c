@@ -25,7 +25,6 @@ OBJS := $(SRCS:%.c=%.o)
 
 ifdef COVERAGE
 CFLAGS := $(CFLAGS) -coverage
-LDFLAGS := $(LDFLAGS) -lgcov
 endif
 
 .PHONY: all test clean
@@ -44,7 +43,7 @@ libwoothee.a: $(OBJS)
 
 
 woothee: bin/woothee.o $(OBJS)
-	$(CC) $^ $(LDFLAGS) -o $@
+	$(CC) $(CFLAGS) $^ $(LDFLAGS) -o $@
 
 
 install:
