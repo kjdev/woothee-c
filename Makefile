@@ -23,6 +23,10 @@ SRCS := \
 	src/misc.c
 OBJS := $(SRCS:%.c=%.o)
 
+ifdef COVERAGE
+CFLAGS := $(CFLAGS) -coverage
+LDFLAGS := $(LDFLAGS) -lgcov
+endif
 
 .PHONY: all test clean
 
@@ -67,6 +71,7 @@ clean:
 	-rm -f bin/*.o $(OBJS)
 	-rm -f libwoothee.so* libwoothee.a
 	-rm -f woothee
+	-rm -f bin/*.gc* src/*.gc* *.gcov
 
 
 %.o: %.c

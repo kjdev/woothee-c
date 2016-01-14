@@ -1,3 +1,6 @@
 *.o
+*.gcda
+*.gcno
+*.gcov
 woothee
 libwoothee.*
