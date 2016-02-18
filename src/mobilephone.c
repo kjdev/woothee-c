@@ -59,8 +59,8 @@ woothee_mobilephone_challenge_softbank(const char *ua, woothee_t *result)
     return 0;
   }
 
-  version = woothee_match_get(
-    "(?:SoftBank|Vodafone|J-PHONE)/[.0-9]+/([^ /;()]+)", 0, ua, 1);
+  version = woothee_match_get("(SoftBank|Vodafone|J-PHONE)"
+                              "/[.0-9]+/([^ /;()]+)", 0, ua, 2);
 
   woothee_update(result, woothee_dataset_get(SoftBank));
   if (version) {
@@ -82,7 +82,8 @@ woothee_mobilephone_challenge_willcom(const char *ua, woothee_t *result)
     return 0;
   }
 
-  version = woothee_match_get("(?:WILLCOM|DDIPOCKET);[^/]+/([^ /;()]+)", 0, ua, 1);
+  version = woothee_match_get("(WILLCOM|DDIPOCKET);[^/]+/([^ /;()]+)",
+                              0, ua, 2);
 
   woothee_update(result, woothee_dataset_get(willcom));
   if (version) {

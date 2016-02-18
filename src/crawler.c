@@ -183,14 +183,13 @@ woothee_crawler_challenge_crawlers(const char *ua, woothee_t *result)
 int
 woothee_crawler_challenge_maybe_crawler(const char *ua, woothee_t *result)
 {
-  if (woothee_match("(bot|crawler|spider)(?:[-_ ./;@()]|$)", 1, ua)) {
+  if (woothee_match("(bot|crawler|spider)([-_ ./;@()]|$)", 1, ua)) {
     woothee_update(result, woothee_dataset_get(VariousCrawler));
     return 1;
   }
 
-  if (woothee_match(
-        "(?:Rome Client |UnwindFetchor/|ia_archiver |Summify |PostRank/)",
-        0, ua)
+  if (woothee_match("(Rome Client |UnwindFetchor/|ia_archiver "
+                    "|Summify |PostRank/)", 0, ua)
       || strstr(ua, "ASP-Ranker Feed Crawler") != NULL) {
     woothee_update(result, woothee_dataset_get(VariousCrawler));
     return 1;

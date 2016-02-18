@@ -44,8 +44,7 @@ woothee_os_challenge_windows(const char *ua, woothee_t *result)
   } else if (strncmp(version, "NT 5.1", 6) == 0) {
     data = woothee_dataset_get(WinXP);
   } else if (woothee_match("^Phone", 0, version)) {
-    char *phone_version = woothee_match_get(
-      "Phone(?: OS)? ([.0-9]+)", 0, ua, 1);
+    char *phone_version = woothee_match_get("Phone( OS)? ([.0-9]+)", 0, ua, 2);
     if (phone_version) {
       free(version);
       version = phone_version;
@@ -92,11 +91,11 @@ woothee_os_challenge_osx(const char *ua, woothee_t *result)
       data = woothee_dataset_get(iPod);
     }
 
-    version = woothee_match_get(
-      "; CPU(?: iPhone)? OS (\\d+_\\d+(?:_\\d+)?) like Mac OS X", 0, ua, 1);
+    version = woothee_match_get("; CPU( iPhone)? OS ([0-9]+_[0-9]+(_[0-9]+)?)"
+                                " like Mac OS X", 0, ua, 2);
   } else {
-    version = woothee_match_get(
-      "Mac OS X (10[._]\\d+(?:[._]\\d+)?)(?:\\)|;)", 0, ua, 1);
+    version = woothee_match_get("Mac OS X (10[._][0-9]+([._][0-9]+)?)(\\)|;)",
+                                0, ua, 1);
   }
 
   woothee_update_category(result, data->category);
@@ -127,8 +126,8 @@ woothee_os_challenge_linux(const char *ua, woothee_t *result)
 
   if (strstr(ua, "Android") != NULL) {
     data = woothee_dataset_get(Android);
-    version = woothee_match_get(
-      "Android[- ](\\d+\\.\\d+(?:\\.\\d+)?)", 0, ua, 1);
+    version = woothee_match_get("Android[- ]([0-9]+\\.[0-9]+(\\.[0-9]+)?)",
+                                0, ua, 1);
   } else {
     data = woothee_dataset_get(Linux);
   }
@@ -161,19 +160,19 @@ woothee_os_challenge_smartphone(const char *ua, woothee_t *result)
     data = woothee_dataset_get(iOS);
   } else if (strstr(ua, "BB10") != NULL) {
     data = woothee_dataset_get(BlackBerry10);
-    version = woothee_match_get("BB10(?:.+)Version/([.0-9]+)", 0, ua, 1);
+    version = woothee_match_get("BB10(.+)Version/([.0-9]+)", 0, ua, 2);
   } else if (strstr(ua, "BlackBerry") != NULL) {
     data = woothee_dataset_get(BlackBerry);
-    version = woothee_match_get("BlackBerry(?:\\d+)/([.0-9]+) ", 0, ua, 1);
+    version = woothee_match_get("BlackBerry([0-9]+)/([.0-9]+) ", 0, ua, 2);
   }
 
   if (result->name) {
     woothee_data_t *firefox = woothee_dataset_get(Firefox);
     if (strcmp(result->name, firefox->name) == 0) {
       char *firefox_version = woothee_match_get(
-        "^Mozilla/[.0-9]+ \\((?:Mobile|Tablet);(?:.*;)? rv:([.0-9]+)\\) "
+        "^Mozilla/[.0-9]+ \\((Mobile|Tablet);(.*;)? rv:([.0-9]+)\\) "
         "Gecko/[.0-9]+ Firefox/[.0-9]+$",
-        0, ua, 1);
+        0, ua, 3);
       if (firefox_version) {
         data = woothee_dataset_get(FirefoxOS);
         if (version) {
@@ -217,8 +216,8 @@ woothee_os_challenge_mobilephone(const char *ua, woothee_t *result)
   }
 
   if (strstr(ua, "WILLCOM") != NULL || strstr(ua, "DDIPOCKET") != NULL) {
-    term = woothee_match_get(
-      "(?:WILLCOM|DDIPOCKET);[^/]+/([^ /;()]+)", 0, ua, 1);
+    term = woothee_match_get("(WILLCOM|DDIPOCKET);[^/]+/([^ /;()]+)",
+                             0, ua, 2);
     if (term) {
         data = woothee_dataset_get(willcom);
         woothee_update_category(result, data->category);
@@ -284,7 +283,7 @@ woothee_os_challenge_misc(const char *ua, woothee_t *result)
     version = strdup("98");
   } else if (strstr(ua, "Macintosh; U; PPC;") != NULL) {
     data = woothee_dataset_get(MacOS);
-    version = woothee_match_get("rv:(\\d+\\.\\d+\\.\\d+)", 0, ua, 1);
+    version = woothee_match_get("rv:([0-9]+\\.[0-9]+\\.[0-9]+)", 0, ua, 1);
   } else if (strstr(ua, "Mac_PowerPC") != NULL) {
     data = woothee_dataset_get(MacOS);
   } else if (strstr(ua, "X11; FreeBSD ") != NULL) {

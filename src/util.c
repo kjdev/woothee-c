@@ -1,4 +1,4 @@
-#include <pcre.h>
+#include <regex.h>
 
 #include "util.h"
 
@@ -82,64 +82,61 @@ woothee_update_os_version(woothee_t *target, char *version)
 int
 woothee_match(const char *regex, int caseless, const char *str)
 {
-  pcre *re;
-  int matched;
-  const char *error_string;
-  int error_offset;
-  int ovector = 0;
-  int options = 0;
+  regex_t re;
+  int ret, matched;
+  int options = REG_EXTENDED;
 
   if (caseless) {
-    options |= PCRE_CASELESS;
+    options |= REG_ICASE;
   }
 
-  re = pcre_compile(regex, options, &error_string, &error_offset, NULL);
-  if (re == NULL) {
-    fprintf(stderr, "ERROR: %s\n", error_string);
+  if ((ret = regcomp(&re, regex, options)) != 0) {
+    char err[BUFSIZ] = { 0, };
+    regerror(ret, &re, err, BUFSIZ);
+    fprintf(stderr, "ERROR: regcomp: '%s': %s\n", regex, err);
+    regfree(&re);
     return 0;
   }
 
-  matched = pcre_exec(re, NULL, str, (int)strlen(str), 0, 0, &ovector, 1);
-  pcre_free(re);
+  matched = regexec(&re, str, 0, 0, 0);
+  regfree(&re);
 
-  if (matched < 0) {
-    return 0;
-  }
-
-  return 1;
+  return !matched;
 }
 
 char *
 woothee_match_get(const char *regex, int caseless, const char *str, int n)
 {
-  pcre *re;
-  int matched;
-  const char *error_string;
-  int error_offset;
-  int ovector[16] = {0};
-  int options = 0;
-  size_t m = 2 * n;
+  regex_t re;
+  int ret, matched;
+  int options = REG_EXTENDED;
+  size_t nmatch = 16;
+  regmatch_t pmatch[nmatch];
 
   if (caseless) {
-    options |= PCRE_CASELESS;
+    options |= REG_ICASE;
   }
 
-  re = pcre_compile(regex, options, &error_string, &error_offset, NULL);
-  if (re == NULL) {
-    fprintf(stderr, "ERROR: %s\n", error_string);
+  if ((ret = regcomp(&re, regex, options)) != 0) {
+    char err[BUFSIZ] = { 0, };
+    regerror(ret, &re, err, BUFSIZ);
+    fprintf(stderr, "ERROR: regcomp: '%s': %s\n", regex, err);
+    regfree(&re);
+    return 0;
+  }
+
+  memset(&pmatch, 0, sizeof(pmatch));
+
+  matched = regexec(&re, str, nmatch, pmatch, 0);
+  regfree(&re);
+
+  if (matched != 0) {
     return NULL;
   }
 
-  matched = pcre_exec(re, NULL, str, (int)strlen(str), 0, 0, ovector, 16);
-  pcre_free(re);
-
-  if (matched < 0) {
+  if (pmatch[n].rm_so < 0 || pmatch[n].rm_eo < 0) {
     return NULL;
   }
 
-  if (m > (sizeof(ovector)/sizeof(ovector[0])) || ovector[m+1] == 0) {
-    return NULL;
-  }
-
-  return strndup(str + ovector[m], ovector[m+1] - ovector[m]);
+  return strndup(str + pmatch[n].rm_so, pmatch[n].rm_eo - pmatch[n].rm_so);
 }

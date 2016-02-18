@@ -144,13 +144,18 @@ main(int argc, char **argv)
   }
 
   if (file) {
-    char buf[BUFSIZ] = {0};
+    char buf[BUFSIZ] = {0, };
+    size_t len;
 
     while (fgets(buf, BUFSIZ, file)) {
-      if (strlen(buf) == 1 && buf[0] == '\n') {
+      if ((len = strlen(buf)) == 0 || buf[0] == '\n') {
         printf("\n");
         continue;
       }
+
+      do {
+        buf[len--] = 0;
+      } while (len > 0 && (buf[len] == '\n' || buf[len] == '\r'));
 
       woothee = woothee_parse(buf);
       if (!woothee) {

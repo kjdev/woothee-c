@@ -59,7 +59,7 @@ woothee_browser_challenge_safari_chrome(const char *ua, woothee_t *result)
     return 1;
   }
 
-  version = woothee_match_get("(?:Chrome|CrMo|CriOS)/([.0-9]+)", 0, ua, 1);
+  version = woothee_match_get("(Chrome|CrMo|CriOS)/([.0-9]+)", 0, ua, 2);
   if (version) {
     char *opera_version = woothee_match_get("OPR/([.0-9]+)", 0, ua, 1);
     if (opera_version) {
@@ -141,7 +141,7 @@ woothee_browser_challenge_webview(const char *ua, woothee_t *result)
 {
   char *version = NULL;
 
-  if (!woothee_match("iP(?:hone;|ad;|od) .*like Mac OS X", 0, ua)) {
+  if (!woothee_match("iP(hone;|ad;|od) .*like Mac OS X", 0, ua)) {
     return 0;
   }
 

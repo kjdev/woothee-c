@@ -11,7 +11,7 @@ endif
 
 
 CFLAGS := $(CFLAGS) -Isrc -fPIC
-LDFLAGS := $(LDFLAGS) -lpcre
+LDFLAGS := $(LDFLAGS)
 SRCS := \
 	src/woothee.c \
 	src/util.c \

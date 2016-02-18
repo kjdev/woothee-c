@@ -200,13 +200,17 @@ exec_parse(const char *useragent)
 {
   woothee_t *result;
 
-  if (!useragent || strlen(useragent) < 1 || strcmp(useragent, "-") == 0) {
+  if (!useragent) {
     return NULL;
   }
 
   result = woothee_create();
   if (!result) {
     return NULL;
+  }
+
+  if (strcmp(useragent, "-") == 0) {
+    return result;
   }
 
   if (try_crawler(useragent, result)) {
