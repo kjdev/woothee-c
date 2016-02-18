@@ -32,10 +32,10 @@ endif
 
 all: libwoothee.so libwoothee.a woothee
 
-libwoothee.so: libwoothee.so.1.0.0
+libwoothee.so: libwoothee.so.1.1.0
 	ln -f -s $^ $@
 
-libwoothee.so.1.0.0: $(OBJS)
+libwoothee.so.1.1.0: $(OBJS)
 	$(CC) -Wl,-soname,$(@F) -shared $^ $(LDFLAGS) -o $@
 
 libwoothee.a: $(OBJS)
@@ -52,9 +52,9 @@ install:
 	install -m755 -d $(DESTDIR)$(INCLUDEDIR)
 
 	install -m644 libwoothee.a $(DESTDIR)$(LIBDIR)
-	install -m755 libwoothee.so.1.0.0 $(DESTDIR)$(LIBDIR)
-	ln -f -s libwoothee.so.1.0.0 $(DESTDIR)$(LIBDIR)/libwoothee.so.1
-	ln -f -s libwoothee.so.1.0.0 $(DESTDIR)$(LIBDIR)/libwoothee.so
+	install -m755 libwoothee.so.1.1.0 $(DESTDIR)$(LIBDIR)
+	ln -f -s libwoothee.so.1.1.0 $(DESTDIR)$(LIBDIR)/libwoothee.so.1
+	ln -f -s libwoothee.so.1.1.0 $(DESTDIR)$(LIBDIR)/libwoothee.so
 
 	install -m755 woothee $(DESTDIR)$(BINDIR)
 
