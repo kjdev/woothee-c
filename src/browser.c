@@ -61,11 +61,22 @@ woothee_browser_challenge_safari_chrome(const char *ua, woothee_t *result)
 
   version = woothee_match_get("(Chrome|CrMo|CriOS)/([.0-9]+)", 0, ua, 2);
   if (version) {
+    /* Opera */
     char *opera_version = woothee_match_get("OPR/([.0-9]+)", 0, ua, 1);
     if (opera_version) {
       woothee_update(result, woothee_dataset_get(Opera));
       woothee_update_version(result, opera_version);
       free(opera_version);
+      free(version);
+      return 1;
+    }
+
+    /* Vivaldi */
+    char *vivaldi_version = woothee_match_get("Vivaldi/([.0-9]+)", 0, ua, 1);
+    if (vivaldi_version) {
+      woothee_update(result, woothee_dataset_get(Vivaldi));
+      woothee_update_version(result, vivaldi_version);
+      free(vivaldi_version);
       free(version);
       return 1;
     }

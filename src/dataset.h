@@ -20,6 +20,7 @@ typedef struct {
   woothee_data_t Safari;
   woothee_data_t Firefox;
   woothee_data_t Opera;
+  woothee_data_t Vivaldi;
   woothee_data_t Sleipnir;
   woothee_data_t Webview;
   woothee_data_t Win;
@@ -111,6 +112,7 @@ static woothee_dataset_t dataset = {
   .Safari = {"Safari", "browser", NULL, NULL, "Apple"},
   .Firefox = {"Firefox", "browser", NULL, NULL, "Mozilla"},
   .Opera = {"Opera", "browser", NULL, NULL, "Opera"},
+  .Vivaldi = {"Vivaldi", "browser", NULL, NULL, "Vivaldi Technologies"},
   .Sleipnir = {"Sleipnir", "browser", NULL, NULL, "Fenrir Inc."},
   .Webview = {"Webview", "browser", NULL, NULL, "OS vendor"},
   .Win = {"Windows UNKNOWN Ver", "os", "pc", NULL, NULL},
